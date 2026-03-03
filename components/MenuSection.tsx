@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FULL_MENU } from '../constants';
+import { FULL_MENU, ASSETS } from '../constants';
 import { Utensils } from 'lucide-react';
 
 const MenuSection: React.FC = () => {
@@ -74,12 +74,46 @@ const MenuSection: React.FC = () => {
             </motion.div>
           </AnimatePresence>
 
-          <div className="mt-16 flex justify-center opacity-50">
+          <div className="mt-16 mb-20 flex justify-center opacity-50">
             <div className="flex items-center gap-3 text-white/40 text-[10px] uppercase tracking-[0.3em] font-medium">
               <Utensils className="w-3 h-3" />
               <span>Calidad Mediterránea Certificada</span>
             </div>
           </div>
+
+          {/* Food Images added from FoodGallery */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              visible: { transition: { staggerChildren: 0.2 } }
+            }}
+            className="grid md:grid-cols-3 gap-8 mt-12"
+          >
+            {ASSETS.food.map((item, index) => (
+              <motion.div
+                key={index}
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 50 } }
+                }}
+                whileHover={{ y: -10, scale: 1.05 }}
+                className="relative aspect-[4/3] overflow-hidden rounded-lg shadow-lg group cursor-pointer"
+              >
+                <img
+                  src={item.url}
+                  alt={item.caption}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <p className="text-white font-medium text-lg translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    {item.caption}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>

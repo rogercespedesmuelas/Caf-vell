@@ -20,7 +20,6 @@ const App: React.FC = () => {
           <Hero />
           <MenuSection />
           <Features />
-          <FoodGallery />
           <Gallery />
           <LocationSection />
         </main>
