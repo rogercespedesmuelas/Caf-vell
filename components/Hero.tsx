@@ -41,16 +41,12 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[80vh] md:min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-20">
+    <section className="relative min-h-[80vh] md:min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-20 bg-transparent">
 
-      {/* Background Layer */}
+      {/* The Layer Trick */}
       <div
-        className="absolute inset-0 z-0 bg-[url('/bg-hero.jpeg')] bg-cover bg-center bg-scroll lg:bg-fixed"
-        style={{ zIndex: -10 }}
-      />
-
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-black/60 z-0"></div>
+        className="absolute inset-0 -z-10 bg-[url('/baixa.jpeg')] bg-cover bg-center before:absolute before:inset-0 before:bg-black/60"
+      ></div>
 
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center flex-grow justify-center">
         <motion.div
