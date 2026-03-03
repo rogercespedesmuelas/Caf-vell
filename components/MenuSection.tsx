@@ -12,7 +12,7 @@ const MenuSection: React.FC = () => {
   return (
     <section id="carta" className="py-24 relative overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 z-0 bg-[url('/bg-hero.jpeg')] bg-cover bg-center bg-scroll lg:bg-fixed"></div>
+      <div className="absolute inset-0 z-0 bg-[url('/bg-hero.jpeg')] bg-cover bg-center bg-scroll"></div>
       <div className="absolute inset-0 bg-black/85 backdrop-blur-[2px] z-0"></div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6">

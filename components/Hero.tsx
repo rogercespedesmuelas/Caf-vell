@@ -45,8 +45,11 @@ const Hero: React.FC = () => {
 
       {/* The Layer Trick */}
       <div
-        className="absolute inset-0 -z-10 bg-cover bg-center before:absolute before:inset-0 before:bg-black/60"
-        style={{ backgroundImage: "url('/baixa.jpeg')" }}
+        className="absolute inset-0 -z-10 bg-cover bg-center bg-scroll before:absolute before:inset-0 before:bg-black/60"
+        style={{
+          backgroundImage: "url('/baixa.jpeg')",
+          backgroundAttachment: "scroll"
+        }}
       ></div>
 
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center flex-grow justify-center">
@@ -78,7 +81,7 @@ const Hero: React.FC = () => {
               href="#carta"
               className="w-full sm:w-auto border-2 border-white/40 text-white px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:bg-white/10 transition-all backdrop-blur-md uppercase"
             >
-              VER CARTA.
+              VER CARTA
             </a>
             <a
               href="tel:+34 677 75 22 17"

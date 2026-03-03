@@ -18,8 +18,8 @@ const App: React.FC = () => {
         <Navbar />
         <main>
           <Hero />
-          <Features />
           <MenuSection />
+          <Features />
           <FoodGallery />
           <Gallery />
           <LocationSection />
