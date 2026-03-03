@@ -1,83 +1,106 @@
-
 import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { ASSETS } from '../constants';
+import { motion } from 'framer-motion';
+import { AnimatedHero } from './ui/animated-hero';
 
 const Hero: React.FC = () => {
-  const { scrollY } = useScroll();
-  const yBackground = useTransform(scrollY, [0, 500], [0, 150]);
-  const opacityContent = useTransform(scrollY, [0, 400], [1, 0]);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const textVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20
+      }
+    }
+  };
+
+  const buttonVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20
+      }
+    }
+  };
 
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-      {/* Background with Parallax and professional low exposure */}
-      <motion.div 
-        style={{ y: yBackground }}
-        className="absolute inset-0 z-0"
-      >
-        <img 
-          src={ASSETS.interior} 
-          alt="Café Vell Interior" 
-          className="w-full h-[120%] object-cover brightness-[0.3] contrast-[1.1] saturate-[0.9]"
-        />
-        {/* Subtle gradient overlays for depth and readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/60" />
-        <div className="absolute inset-0 bg-black/20" />
-      </motion.div>
+    <section className="relative min-h-[80vh] md:min-h-screen w-full flex flex-col items-center justify-center overflow-hidden py-20">
 
-      <div className="relative z-10 w-full max-w-5xl mx-auto px-6">
-        <motion.div 
-          initial={{ y: 30, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          style={{ opacity: opacityContent }}
-          className="text-center flex flex-col items-center"
+      {/* Background Layer */}
+      <div
+        className="absolute inset-0 z-0 bg-[url('/bg-hero.jpeg')] bg-cover bg-center bg-scroll lg:bg-fixed"
+        style={{ zIndex: -10 }}
+      />
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/60 z-0"></div>
+
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center flex-grow justify-center">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="text-center flex flex-col items-center w-full"
         >
           {/* Logo/Subtitle Badge */}
-          <motion.span 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-gold uppercase tracking-[0.5em] font-bold text-sm mb-6 drop-shadow-lg"
+          <motion.span
+            variants={textVariants}
+            className="text-gold font-bold text-xl mb-6 drop-shadow-lg font-serif italic"
           >
-            Establert a Salou
+            Establecido en Salou
           </motion.span>
 
-          {/* Impactful Title */}
-          <h1 className="text-7xl md:text-9xl font-bold text-white mb-8 leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] serif italic">
-            Café Vell
-          </h1>
-
-          {/* Centered Description */}
-          <p className="text-xl md:text-2xl text-white/90 font-light max-w-2xl italic serif leading-relaxed drop-shadow-md mb-12">
-            "L'art del bon cafè davant de la Mediterrània. Un refugi premium on cada detall explica una història."
-          </p>
+          {/* Animated Hero Component */}
+          <div className="mb-12 w-full">
+            <AnimatedHero />
+          </div>
 
           {/* Centered Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
-            <a 
-              href="#carta" 
-              className="w-full sm:w-auto bg-gold text-coffee-dark px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:bg-white transition-all shadow-2xl hover:-translate-y-1 active:scale-95 uppercase"
-            >
-              EXPLORA LA CARTA
-            </a>
-            <a 
-              href="#" 
+          <motion.div
+            variants={buttonVariants}
+            className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto"
+          >
+            <a
+              href="#carta"
               className="w-full sm:w-auto border-2 border-white/40 text-white px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:bg-white/10 transition-all backdrop-blur-md uppercase"
             >
-              FER UNA RESERVA
+              VER CARTA
             </a>
-          </div>
+            <a
+              href="tel:+34 677 75 22 17"
+              className="w-full sm:w-auto border-2 border-white/40 text-white px-10 py-4 rounded-full font-bold text-sm tracking-widest hover:bg-white/10 transition-all backdrop-blur-md uppercase"
+            >
+              RESERVAR MESA
+            </a>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator with refined appearance */}
-      <motion.div 
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center text-white/40"
+      {/* Scroll indicator - Relocated to flow */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 10, 0] }}
+        transition={{ delay: 1.5, duration: 2, repeat: Infinity }}
+        className="relative z-10 flex flex-col items-center text-white/40 mt-12 md:mt-0 md:absolute md:bottom-10 md:left-1/2 md:-translate-x-1/2"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em] mb-4">Descobreix l'experiència</span>
+        <span className="text-[10px] uppercase tracking-[0.3em] mb-4 text-center">Descubre la experiencia</span>
         <div className="w-[1px] h-16 bg-gradient-to-b from-gold/50 to-transparent" />
       </motion.div>
     </section>
