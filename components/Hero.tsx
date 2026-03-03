@@ -45,7 +45,8 @@ const Hero: React.FC = () => {
 
       {/* The Layer Trick */}
       <div
-        className="absolute inset-0 -z-10 bg-[url('/baixa.jpeg')] bg-cover bg-center before:absolute before:inset-0 before:bg-black/60"
+        className="absolute inset-0 -z-10 bg-cover bg-center before:absolute before:inset-0 before:bg-black/60"
+        style={{ backgroundImage: "url('/baixa.jpeg')" }}
       ></div>
 
       <div className="relative z-10 w-full max-w-5xl mx-auto px-6 flex flex-col items-center flex-grow justify-center">
